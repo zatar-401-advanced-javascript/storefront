@@ -80,21 +80,6 @@ const useStyles = makeStyles((theme) => ({
 const Categories = (props) => {
   const classes = useStyles();
   return (
-    // <section>
-    //   <ul>
-    //     {props.categories.map((e) => {
-    //       return (
-    //         <li
-    //           onClick={() => props.activeCategory(e.name)}
-    //           key={e.name}
-    //         >
-    //           {e.name} : {e.description}
-    //         </li>
-    //       );
-    //     })}
-    //   </ul>
-    // </section>
-
     <div className={classes.root}>
       {props.categories.map((category) => (
         <ButtonBase
