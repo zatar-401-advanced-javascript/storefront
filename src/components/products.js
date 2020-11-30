@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { If } from 'react-if'
 import { makeStyles } from '@material-ui/core/styles';
+import { addProduct } from '../store/cart'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     marginTop: '100px',
-    marginBottom:'30px'
+    marginBottom: '30px'
   },
   containerBtn: {
     marginTop: '30px'
@@ -49,19 +50,20 @@ const useStyles = makeStyles((theme) => ({
 const Products = (props) => {
   const classes = useStyles();
   return (
-    <Grid className={classes.container} container justify="center" wrap="warp" spacing={2}>
-      {props.products.map((product) => {
+    <Grid className={classes.container} container justify="center" wrap="wrap" spacing={2}>
+      {props.products.map((product, index) => {
+        product.index = index;
         return (
-          <Grid item sm={4}>
+          <Grid key={product.name} item sm={4}>
             <If condition={props.active !== ''}>
               {/* variant='outlined' */}
-              <Paper key={product.name} className={classes.paper}>
+              <Paper className={classes.paper}>
                 <img alt={product.name} className={classes.image} src={product.image}></img>
                 <Typography variant="h4">
                   {product.name}
                 </Typography>
-                <Grid className={classes.containerBtn} container justify="center" wrap="warp" spacing={3}>
-                  <Button style={{ marginRight: '10px' }} variant="contained" color="secondary">
+                <Grid className={classes.containerBtn} container justify="center" wrap="wrap" spacing={3}>
+                  <Button onClick={() => props.addProduct(product)} style={{ marginRight: '10px' }} variant="contained" color="secondary">
                     <strong>Add to Cart</strong>
                   </Button>
                   <Button variant="outlined" color="secondary">
@@ -82,6 +84,7 @@ const mapStateToProps = (state) => {
   return { products: state.products.products, active: state.categories.active };
 };
 
+const mapDispatchToProps = { addProduct };
 
 
-export default connect(mapStateToProps)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

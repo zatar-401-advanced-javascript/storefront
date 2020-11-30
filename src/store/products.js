@@ -12,15 +12,47 @@ const initialState = {
 //Reducer
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
-  // console.log('STATE??', state, 'Action', action);
   const { type, payload } = action;
   switch (type) {
+
     case 'ACTIVE':
       let products = initialState.products.filter((product) => {
         return product.category === payload && product.inStock > 0;
       })
-      console.log(products)
-      return {products }
+      return { products }
+
+    case 'ADD':
+      let newProducts = { ...state }
+      let index = payload.index;
+      let inStock = newProducts.products[index].inStock;
+      newProducts.products[index].inStock = inStock - 1
+
+      if (inStock === 1) {
+        newProducts.products = newProducts.products.filter((product) => {
+          return product.inStock > 0;
+        })
+        return newProducts
+      }
+      return newProducts
+    case 'DELETE':
+      let stock = payload.product.inStock
+      payload.product.inStock = payload.product.inStock + payload.product.count;
+      payload.product.count = 0;
+      if (payload.active === payload.product.category && stock === 0) {
+        return { products: [...state.products, payload.product] };
+      }
+      return state;
+    case 'CLEAR':
+      // initialState.products.forEach(product =>{
+      //   product.inStock = product.inStock + product.count;
+      //   product.count = 0;
+      // })
+      // let reset = initialState.products.filter((product) => {
+      //   return product.category === payload && product.inStock > 0;
+      // })
+      // console.log(reset,initialState.products)
+      return state
+      // return {products:initialState.products}
     default:
       return state;
   }

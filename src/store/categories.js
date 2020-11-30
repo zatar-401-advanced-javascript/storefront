@@ -1,8 +1,8 @@
 const initialState = {
   categories: [
-    { name: 'food', displyName: 'Food', description: 'Desc', url: 'https://images.pexels.com/photos/33162/food-restaurant-menu-asia.jpg?cs=srgb&dl=pexels-pixabay-33162.jpg&fm=jpg' },
-    { name: 'electronics', displyName: 'Electronics', description: 'Desc', url: 'https://images.pexels.com/photos/270640/pexels-photo-270640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
-    { name: 'clothing', displyName: 'Clothing', description: 'Desc', url: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }
+    { name: 'food', displyName: 'Food', description: 'Provide nutritional support for an organism', url: 'https://images.pexels.com/photos/33162/food-restaurant-menu-asia.jpg?cs=srgb&dl=pexels-pixabay-33162.jpg&fm=jpg' },
+    { name: 'electronics', displyName: 'Electronics', description: 'Physics, engineering, technology and applications ', url: 'https://images.pexels.com/photos/270640/pexels-photo-270640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' },
+    { name: 'clothing', displyName: 'Clothing', description: 'Items worn on the body', url: 'https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }
   ],
   active: ''
 };
