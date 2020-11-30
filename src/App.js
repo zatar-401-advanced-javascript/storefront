@@ -1,3 +1,4 @@
+//===========================================| Dependencies |===========================================
 import Header from './components/header';
 import Footer from './components/footer';
 import Categories from './components/categories';
@@ -7,7 +8,7 @@ import Title from './components/title'
 import { useSelector } from 'react-redux';
 import { If } from 'react-if'
 
-
+//================================================| App |================================================
 function App() {
   const state = useSelector((state) => {
     return {
@@ -28,5 +29,5 @@ function App() {
     </>
   );
 }
-
 export default App;
+//========================================================================================================

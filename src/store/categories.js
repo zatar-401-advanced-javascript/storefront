@@ -1,3 +1,4 @@
+//========================================| Initial State |========================================
 const initialState = {
   categories: [
     { name: 'food', displyName: 'Food', description: 'Provide nutritional support for an organism', url: 'https://images.pexels.com/photos/33162/food-restaurant-menu-asia.jpg?cs=srgb&dl=pexels-pixabay-33162.jpg&fm=jpg' },
@@ -6,13 +7,16 @@ const initialState = {
   ],
   active: ''
 };
-//Reducer
+
+//===========================================| Reducer |===========================================
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   // console.log('STATE??', state, 'Action', action);
   const { type, payload } = action;
   switch (type) {
+
     case 'ACTIVE':
+      // Change the active category from payload value
       const active = payload;
       const categories = state.categories
       return { categories, active };
@@ -21,9 +25,11 @@ export default (state = initialState, action) => {
   }
 };
 
-export const activeCategory = (name) => {
+//============================================| Actions |============================================
+export const activeCategory = (category) => {
   return {
     type: 'ACTIVE',
-    payload: name,
+    payload: category,
   };
 };
+//====================================================================================================

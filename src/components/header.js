@@ -1,3 +1,5 @@
+//============================================| Dependencies |============================================
+
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,20 +8,14 @@ import Button from '@material-ui/core/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { showCart } from '../store/cart'
 
-
+//===============================================| Styling |===============================================
 const useStyles = makeStyles((theme) => ({
-  // root: {
-  //   flexGrow: 1,
-  // },
-  // menuButton: {
-  //   marginRight: theme.spacing(2),
-  // },
   title: {
     flexGrow: 1,
   },
 }));
 
-
+//===========================================| Header Component |===========================================
 function Header() {
   const dispatch = useDispatch();
   const state = useSelector((state) => {
@@ -42,3 +38,4 @@ function Header() {
 }
 
 export default Header;
+//===========================================================================================================

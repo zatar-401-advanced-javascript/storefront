@@ -1,7 +1,6 @@
-// import React from 'react';
+//============================================| Dependencies |============================================
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-// import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 
+//===============================================| Styling |===============================================
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -27,7 +27,10 @@ const useStyles = makeStyles({
   },
 });
 
+//============================================| Cart Component |============================================
+
 export default function Cart() {
+  
   const state = useSelector((state) => {
     return {
       cart: state.cart.cart,
@@ -78,3 +81,4 @@ export default function Cart() {
   );
 }
 
+//===========================================================================================================
