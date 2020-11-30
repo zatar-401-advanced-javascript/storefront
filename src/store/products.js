@@ -1,3 +1,4 @@
+//========================================| Initial State |========================================
 const initialState = {
   products: [
     { name: 'TV', category: 'electronics', price: 699.00, inStock: 5, image: 'https://cdn.pixabay.com/photo/2018/12/22/03/27/smart-tv-3889141_960_720.png' },
@@ -9,19 +10,21 @@ const initialState = {
     { name: 'Bread', category: 'food', price: 2.39, inStock: 90, image: 'https://toppng.com/uploads/preview/bread-png-image-loaf-of-bread-11563103187ssm8yazedr.png' },
   ]
 };
-//Reducer
+//===========================================| Reducer |===========================================
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
 
     case 'ACTIVE':
+      // Filter inital state based on the active category
       let products = initialState.products.filter((product) => {
         return product.category === payload && product.inStock > 0;
       })
       return { products }
 
     case 'ADD':
+      // Copy state, reduce in stock of the product, if the product reach to 0 filter the products and return without finshed product
       let newProducts = { ...state }
       let index = payload.index;
       let inStock = newProducts.products[index].inStock;
@@ -34,7 +37,9 @@ export default (state = initialState, action) => {
         return newProducts
       }
       return newProducts
+
     case 'DELETE':
+      // reset the stock of the product and the count, if it was remove from products then add it again to the page
       let stock = payload.product.inStock
       payload.product.inStock = payload.product.inStock + payload.product.count;
       payload.product.count = 0;
@@ -42,18 +47,21 @@ export default (state = initialState, action) => {
         return { products: [...state.products, payload.product] };
       }
       return state;
-    case 'CLEAR':
-      // initialState.products.forEach(product =>{
-      //   product.inStock = product.inStock + product.count;
-      //   product.count = 0;
-      // })
-      // let reset = initialState.products.filter((product) => {
-      //   return product.category === payload && product.inStock > 0;
-      // })
-      // console.log(reset,initialState.products)
-      return state
-      // return {products:initialState.products}
+//===============================| Extra ===============================
+    // case 'CLEAR':
+    // initialState.products.forEach(product =>{
+    //   product.inStock = product.inStock + product.count;
+    //   product.count = 0;
+    // })
+    // let reset = initialState.products.filter((product) => {
+    //   return product.category === payload && product.inStock > 0;
+    // })
+    // console.log(reset,initialState.products)
+    // return {products:initialState.products}
+    // return state
+//======================================================================
     default:
       return state;
   }
 };
+//=======================================================================================================

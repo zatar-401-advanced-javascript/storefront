@@ -1,3 +1,4 @@
+//===========================================| Dependencies |===========================================
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -5,6 +6,8 @@ import store from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+
+//==============================================| Theme |==============================================
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -21,7 +24,7 @@ const theme = createMuiTheme({
     },
   },
 });
-
+//===========================================| Render app |===========================================
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
@@ -34,3 +37,4 @@ ReactDOM.render(
 );
 
 reportWebVitals();
+//====================================================================================================

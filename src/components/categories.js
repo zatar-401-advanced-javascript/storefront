@@ -1,9 +1,16 @@
+//============================================| Dependencies |============================================
 import { connect } from 'react-redux';
 import { activeCategory } from '../store/categories';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 
+const mapStateToProps = (state) => {
+  return { categories: state.categories.categories };
+};
+const mapDispatchToProps = { activeCategory };
+
+//===============================================| Styling |===============================================
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -77,27 +84,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//===========================================| Categories Component |===========================================
 const Categories = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
       {props.categories.map((category) => (
         <ButtonBase
-          focusRipple
-          key={category.name}
-          className={classes.image}
-          onClick={() => props.activeCategory(category.name)}
-          focusVisibleClassName={classes.focusVisible}
-          style={{
-            width: `${(1/props.categories.length)*100}%`,
-          }}
+        focusRipple
+        key={category.name}
+        className={classes.image}
+        onClick={() => props.activeCategory(category.name)}
+        focusVisibleClassName={classes.focusVisible}
+        style={{
+          width: `${(1/props.categories.length)*100}%`,
+        }}
         >
           <span
             className={classes.imageSrc}
             style={{
               backgroundImage: `url(${category.url})`,
             }}
-          />
+            />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
             <Typography
@@ -116,11 +124,5 @@ const Categories = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { categories: state.categories.categories };
-};
-
-const mapDispatchToProps = { activeCategory };
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+//===========================================================================================================
