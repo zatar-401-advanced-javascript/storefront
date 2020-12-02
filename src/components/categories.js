@@ -4,11 +4,13 @@ import { activeCategory } from '../store/categories';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import { useEffect } from 'react'
+import { getRemoteData } from '../store/categories'
 
 const mapStateToProps = (state) => {
   return { categories: state.categories.categories };
 };
-const mapDispatchToProps = { activeCategory };
+const mapDispatchToProps = { activeCategory, getRemoteData };
 
 //===============================================| Styling |===============================================
 const useStyles = makeStyles((theme) => ({
@@ -86,26 +88,32 @@ const useStyles = makeStyles((theme) => ({
 
 //===========================================| Categories Component |===========================================
 const Categories = (props) => {
+
+  useEffect(() => {
+    props.getRemoteData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
       {props.categories.map((category) => (
         <ButtonBase
-        focusRipple
-        key={category.name}
-        className={classes.image}
-        onClick={() => props.activeCategory(category.name)}
-        focusVisibleClassName={classes.focusVisible}
-        style={{
-          width: `${(1/props.categories.length)*100}%`,
-        }}
+          focusRipple
+          key={category.name}
+          className={classes.image}
+          onClick={() => props.activeCategory(category.name)}
+          focusVisibleClassName={classes.focusVisible}
+          style={{
+            width: `${(1 / props.categories.length) * 100}%`,
+          }}
         >
           <span
             className={classes.imageSrc}
             style={{
               backgroundImage: `url(${category.url})`,
             }}
-            />
+          />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
             <Typography
@@ -114,7 +122,7 @@ const Categories = (props) => {
               color="inherit"
               className={classes.imageTitle}
             >
-              {category.displyName}
+              {(category.name).toUpperCase()}
               <span className={classes.imageMarked} />
             </Typography>
           </span>

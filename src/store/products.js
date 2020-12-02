@@ -1,5 +1,10 @@
+import superagent from 'superagent'
+import dotenv from 'dotenv';
+dotenv.config();
+const API = process.env.API || 'http://api-js401.herokuapp.com/api/v1';
+
 //========================================| Initial State |========================================
-const initialState = {
+let initialState = {
   products: [
     { name: 'TV', category: 'electronics', price: 699.00, inStock: 5, image: 'https://cdn.pixabay.com/photo/2018/12/22/03/27/smart-tv-3889141_960_720.png' },
     { name: 'Radio', category: 'electronics', price: 99.00, inStock: 15, image: 'https://pluspng.com/img-png/radio-hd-png-radio-picture-png-image-500.png' },
@@ -28,15 +33,20 @@ export default (state = initialState, action) => {
       let newProducts = { ...state }
       let index = payload.index;
       let inStock = newProducts.products[index].inStock;
-      newProducts.products[index].inStock = inStock - 1
+      let test = [...newProducts.products]
+      test[index].inStock = inStock - 1;
+      newProducts.products = test;
+      // newProducts.products[index].inStock = inStock - 1
 
       if (inStock === 1) {
         newProducts.products = newProducts.products.filter((product) => {
           return product.inStock > 0;
         })
         return newProducts
+      } else {
+        return newProducts
       }
-      return newProducts
+    // return state
 
     case 'DELETE':
       // reset the stock of the product and the count, if it was remove from products then add it again to the page
@@ -46,8 +56,11 @@ export default (state = initialState, action) => {
       if (payload.active === payload.product.category && stock === 0) {
         return { products: [...state.products, payload.product] };
       }
-      return state;
-//===============================| Extra ===============================
+      return { products: [...state.products] };
+    case 'GET_P':
+      initialState = payload;
+      return payload;
+    //===============================| Extra ===============================
     // case 'CLEAR':
     // initialState.products.forEach(product =>{
     //   product.inStock = product.inStock + product.count;
@@ -59,9 +72,53 @@ export default (state = initialState, action) => {
     // console.log(reset,initialState.products)
     // return {products:initialState.products}
     // return state
-//======================================================================
+    //======================================================================
     default:
       return state;
   }
 };
 //=======================================================================================================
+
+export const getRemoteData = () => {
+  return (dispatch) => {
+    return superagent.get(`${API}/products`).then((response) => {
+      dispatch(getProducts({ products: response.body.results }));
+    });
+  };
+};
+
+export const updateRemoteData = (product) => {
+  return (dispatch) => {
+    return superagent.put(`${API}/products/${product._id}`).send({ inStock: product.inStock - 1 }).then(() => {
+      dispatch(addProduct(product));
+    });
+  };
+};
+
+const getProducts = (payload) => {
+  return {
+    type: 'GET_P',
+    payload: payload,
+  };
+};
+
+export const addProduct = (product) => {
+  return {
+    type: 'ADD',
+    payload: product,
+  };
+};
+
+export const resetRemoteData = (payload) => {
+  return (dispatch) => {
+    return superagent.put(`${API}/products/${payload.product._id}`).send({ inStock: payload.product.inStock + payload.product.count }).then(() => {
+      dispatch(resetProduct(payload));
+    });
+  };
+};
+export const resetProduct = (payload) => {
+  return {
+    type: 'DELETE',
+    payload: payload,
+  };
+};

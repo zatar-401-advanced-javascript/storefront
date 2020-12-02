@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { useSelector, useDispatch } from 'react-redux';
 import { showCart } from '../store/cart'
+import {resetRemoteData} from '../store/products'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AppBar from '@material-ui/core/AppBar';
@@ -60,7 +61,7 @@ export default function Cart() {
                   <Typography variant="h6">
                     <strong>{product.name}</strong> ({product.count})
                   </Typography>
-                  <IconButton color="secondary" onClick={() => { dispatch({ type: 'DELETE', payload: { product, active: state.active } }) }} aria-label="delete">
+                  <IconButton color="secondary" onClick={() => { dispatch(resetRemoteData({ product, active: state.active } )) }} aria-label="delete">
                     <DeleteIcon />
                   </IconButton>
                 </Grid>

@@ -1,4 +1,4 @@
-# LAB - Class 37
+# LAB - Class 38
 
 ## Project: Virtual Store
 
@@ -7,6 +7,8 @@
 ### Setup
 
 #### .env
+
+* API : ```http://api-js401.herokuapp.com/api/v1```
 
 #### How to initialize/run your application (where applicable)
 

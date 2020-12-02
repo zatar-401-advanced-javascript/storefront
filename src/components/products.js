@@ -2,16 +2,19 @@
 import { connect } from 'react-redux';
 import { If } from 'react-if'
 import { makeStyles } from '@material-ui/core/styles';
-import { addProduct } from '../store/cart'
+// import { addProduct } from '../store/cart'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { useEffect } from 'react'
+import { getRemoteData,updateRemoteData } from '../store/products'
+
 
 const mapStateToProps = (state) => {
   return { products: state.products.products, active: state.categories.active };
 };
-const mapDispatchToProps = { addProduct };
+const mapDispatchToProps = { updateRemoteData,getRemoteData };
 
 //===============================================| Styling |===============================================
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +59,11 @@ const useStyles = makeStyles((theme) => ({
 //===========================================| Product Component |===========================================
 const Products = (props) => {
   const classes = useStyles();
+  
+  useEffect(() => {
+    props.getRemoteData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <Grid className={classes.container} container justify="center" wrap="wrap" spacing={2}>
       {props.products.map((product, index) => {
@@ -69,8 +77,12 @@ const Products = (props) => {
                 <Typography variant="h4">
                   {product.name}
                 </Typography>
+                <Typography variant="subtitle1">
+                  <strong>Stock: </strong>{product.inStock}
+                </Typography>
                 <Grid className={classes.containerBtn} container justify="center" wrap="wrap" spacing={3}>
-                  <Button onClick={() => props.addProduct(product)} style={{ marginRight: '10px' }} variant="contained" color="secondary">
+                  <Button onClick={() => props.updateRemoteData(product)
+                  } style={{ marginRight: '10px' }} variant="contained" color="secondary">
                     <strong>Add to Cart</strong>
                   </Button>
                   <Button variant="outlined" color="secondary">
