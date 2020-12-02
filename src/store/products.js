@@ -1,7 +1,7 @@
 import superagent from 'superagent'
 import dotenv from 'dotenv';
 dotenv.config();
-const API = process.env.API || 'http://api-js401.herokuapp.com/api/v1';
+const API = process.env.API || 'https://api-js401.herokuapp.com/api/v1';
 
 //========================================| Initial State |========================================
 let initialState = {
